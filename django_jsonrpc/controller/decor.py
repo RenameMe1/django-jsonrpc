@@ -3,13 +3,13 @@ from functools import wraps
 from typing import Any
 
 
-def _decorate(
-    func: Callable[..., Any],
+def _decorate[R, **P](
+    func: Callable[P, R],
     rpc_name: str,
     summary: str | None = None,
     description: str | None = None,
     tags: list[str] | None = None,
-) -> Callable[..., Any]:
+) -> Callable[P, R]:
     # Keep an explicit RPC alias on the callable, because class attribute
     # names are used during registry collection and cannot be renamed here.
     setattr(func, "__rpc_method_name__", rpc_name)
@@ -18,7 +18,7 @@ def _decorate(
     setattr(func, "__rpc_method_tags__", tags)
 
     @wraps(func)
-    def wrapper(*args: tuple[Any, ...], **kwargs: dict[str, Any]) -> Any:
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         return func(*args, **kwargs)
 
     setattr(wrapper, "__rpc_method_name__", rpc_name)
@@ -29,10 +29,9 @@ def _decorate(
     return wrapper
 
 
-def simple_decorator(
-    func: Callable[..., Any],
-) -> Callable[..., Any]:
-
+def simple_decorator[R, **P](
+    func: Callable[P, R],
+) -> Callable[P, R]:
     return _decorate(
         func,
         rpc_name=func.__name__,
@@ -40,14 +39,14 @@ def simple_decorator(
     )
 
 
-def parametrized_decorator(
-    func: Callable[..., Any],
+def parametrized_decorator[R, **P](
+    func: Callable[P, R],
     *,
     name: str | None = None,
     summary: str | None = None,
     description: str | None = None,
     tags: list[str] | None = None,
-) -> Callable[..., Any]:
+) -> Callable[P, R]:
     rpc_name = name if isinstance(name, str) else func.__name__
     return _decorate(
         func,
