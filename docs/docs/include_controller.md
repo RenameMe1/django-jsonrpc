@@ -15,7 +15,7 @@ class AccountController(BaseController)
 
 ``` python
 
-from django-jsonrpc import RouteContoller, BaseController
+from django-jsonrpc import RouteController, BaseController
 
 class ProductController(BaseController)
 
@@ -34,12 +34,13 @@ from django_jsonrpc.controller import RouteController
 from .product import ProductController
 from .account import AccountController
 
-route = RouteControoler(
+route = RouteController(
     path="jsonrpc",
     controllers=[
         ProductController,
         AccountController,
         ]
+)
 
 urlpatterns = [
     path(route.path, route.as_view()),
