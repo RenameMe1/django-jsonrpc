@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from functools import wraps
-from typing import Any, overload
+from typing import Any
 
 
 def _decorate[R, **P](
