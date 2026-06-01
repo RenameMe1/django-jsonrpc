@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{{ page_title }}</title>
+  <link rel="stylesheet" href="{{ docs_react_css_url }}" />
+</head>
+<body>
+  <div id="openrpc-root"></div>
+  <script type="module">
+    import * as React from "{{ esm_react_url|escapejs }}";
+    import { createRoot } from "{{ esm_react_dom_url|escapejs }}";
+    import { Documentation } from "{{ esm_openrpc_docs_url|escapejs }}";
+    import { ThemeProvider, createTheme } from "{{ esm_mui_styles_url|escapejs }}";
+    import CssBaseline from "{{ esm_mui_css_baseline_url|escapejs }}";
+
+    const schemaResponse = await fetch("{{ openrpc_schema_url|escapejs }}");
+    const schema = await schemaResponse.json();
+    
+    function deepClone(value) {
+      return value == null ? value : JSON.parse(JSON.stringify(value));
+    }
+
+    function resolvePointer(root, pointer) {
+      if (!pointer.startsWith("#/")) {
+        return null;
+      }
+
+      const parts = pointer
+        .slice(2)
+        .split("/")
+        .map((part) => part.replace(/~1/g, "/").replace(/~0/g, "~"));
+
+      let current = root;
+      for (const part of parts) {
+        if (current == null || typeof current !== "object" || !(part in current)) {
+          return null;
+        }
+        current = current[part];
+      }
+
+      return current;
+    }
+
+    function dereferenceNode(node, root, stack = new Set()) {
+      if (Array.isArray(node)) {
+        return node.map((item) => dereferenceNode(item, root, stack));
+      }
+
+      if (node == null || typeof node !== "object") {
+        return node;
+      }
+
+      if (typeof node.$ref === "string" && Object.keys(node).length === 1) {
+        const ref = node.$ref;
+        if (stack.has(ref)) {
+          return node;
+        }
+
+        const target = resolvePointer(root, ref);
+        if (target == null) {
+          return node;
+        }
+
+        const nextStack = new Set(stack);
+        nextStack.add(ref);
+        return dereferenceNode(deepClone(target), root, nextStack);
+      }
+
+      const output = {};
+      for (const [key, value] of Object.entries(node)) {
+        output[key] = dereferenceNode(value, root, stack);
+      }
+      return output;
+    }
+
+    const resolvedSchema = dereferenceNode(deepClone(schema), schema);
+    const theme = createTheme({ palette: { mode: "{{ openrpc_theme_mode|escapejs }}" } });
+
+    const root = createRoot(document.getElementById("openrpc-root"));
+    root.render(
+      React.createElement(
+        ThemeProvider,
+        { theme },
+        React.createElement(CssBaseline, null),
+        React.createElement(Documentation, { schema: resolvedSchema }),
+      ),
+    );
+  </script>
+</body>
+</html>

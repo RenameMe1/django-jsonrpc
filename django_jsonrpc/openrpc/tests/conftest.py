@@ -1,0 +1,1 @@
+from django_jsonrpc.openrpc.tests._conftest import * # noqa: F403
