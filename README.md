@@ -17,7 +17,7 @@ We provide several methods creating methods.
 
 ``` python
 
-from django-jsonrpc import BaseController
+from django_jsonrpc import BaseController
 from django_jsonrpc.controller.decor import jsonrpc_method
 
 class EchoController(BaseController):
@@ -38,7 +38,7 @@ class EchoController(BaseController):
 ## Adding several controllers to one controller
 
 ``` python
-from django-jsonrpc import RouteController
+from django_jsonrpc import RouteController
 
 class PrintController(BaseController):
 
