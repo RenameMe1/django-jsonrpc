@@ -33,7 +33,7 @@ _OpenRpcSchemaTD = TypedDict(
     {
         "type": Literal['string', 'integer', 'number', 'boolean', 'array', 'object'],
         "required": list[str] | None,
-        "properties": dict | None,
+        "properties": dict[str, dict[str, str]] | None,
         "$ref": str | None,
     },
     total=False,
@@ -43,7 +43,7 @@ _OpenRpcSchemaTD = TypedDict(
 class OpenRpcDataSchema(OpenRPCModel):
     type: Annotated[str, BeforeValidator(validate_type)]
     required: list[str] | None = None
-    properties: dict | None = None
+    properties: dict[str, dict[str, str]] | None = None
 
 class OpenRpcRefSchema(OpenRPCModel):
     ref: Annotated[str, Field(serialization_alias="$ref")]

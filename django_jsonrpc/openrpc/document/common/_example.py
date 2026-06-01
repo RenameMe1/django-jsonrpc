@@ -1,4 +1,4 @@
-from typing import Annotated, TypedDict
+from typing import Annotated, TypedDict, NotRequired
 from pydantic import Field
 
 from django_jsonrpc.openrpc.document._base import OpenRPCModel
@@ -8,9 +8,9 @@ __all__ = [
 ]
 
 class _OpenRpcExampleObjectTD(TypedDict):
-    summary: str | None
+    summary: NotRequired[str]
     value: str
-    description: str | None
+    description: NotRequired[str]
     name: str
 
 

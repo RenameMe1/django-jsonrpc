@@ -8,8 +8,13 @@ __all__ = [
 ]
 
 
-class _OpenRpcReferenceObjectTD(TypedDict):
-    ref: str
+_OpenRpcReferenceObjectTD = TypedDict(
+    "_OpenRpcReferenceObjectTD",
+    {
+        "$ref": str,
+    },
+    total=False,
+)
 
 
 class OpenRpcReferenceObject(OpenRPCModel):

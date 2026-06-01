@@ -2,8 +2,8 @@ from typing import Annotated, TypedDict
 from pydantic import Field
 
 from django_jsonrpc.openrpc.document._base import OpenRPCModel
-from django_jsonrpc.openrpc.document.server import OpenRpcServerObjectVariable
-
+from django_jsonrpc.openrpc.document.server._server import OpenRpcServerObjectVariable
+from django_jsonrpc.openrpc.document.server._server import _OpenRpcServerObjectVariableTD
 
 __all__ = [
     "OpenRpcLinkObjectServer",
@@ -15,7 +15,7 @@ class _OpenRpcLinkObjectServerTD(TypedDict):
     name: str | None
     description: str | None
     summary: str | None
-    variables: dict[str, OpenRpcServerObjectVariable] | None
+    variables: dict[str, _OpenRpcServerObjectVariableTD] | None
 
 
 class OpenRpcLinkObjectServer(OpenRPCModel):

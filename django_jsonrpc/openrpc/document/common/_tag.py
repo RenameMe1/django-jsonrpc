@@ -3,6 +3,8 @@ from pydantic import Field
 
 from django_jsonrpc.openrpc.document._base import OpenRPCModel
 from django_jsonrpc.openrpc.document.external_docs import OpenRpcExternalDoc
+from django_jsonrpc.openrpc.document.external_docs._external_docs import _OpenRpcExternalDocTD
+
 
 __all__ = [
     "OpenRpcTag",
@@ -12,7 +14,7 @@ __all__ = [
 class _OpenRpcTagTD(TypedDict, total=False):
     name: str
     description: str | None
-    externalDocs: OpenRpcExternalDoc | None
+    externalDocs: _OpenRpcExternalDocTD | None
 
 
 class OpenRpcTag(OpenRPCModel):

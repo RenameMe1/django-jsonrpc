@@ -33,7 +33,7 @@ class InputCollector:
             else:
                 openrpc_method.params.append(OpenRcpContentDescriptorObject(
                     name=param.name,
-                    schema={
+                    schema_={
                         "type": validate_type_name(param.annotation.__name__),
                     },
                     required=True if param.default is param.empty else False,
@@ -63,7 +63,7 @@ class InputCollector:
 
         return OpenRcpContentDescriptorObject(
             name=component_name,
-            schema=OpenRpcRefSchema(
+            schema_=OpenRpcRefSchema(
                 ref=f"#/components/schemas/{component_name}",
             ),
             required=True if param.default is param.empty else False,
@@ -111,7 +111,7 @@ class OutputCollector:
         else:
             openrpc_method.result = OpenRcpContentDescriptorObject(
                 name=return_type.__name__,
-                schema=OpenRcpTypeSchema(type=validate_type_name(return_type.__name__)),
+                schema_=OpenRcpTypeSchema(type=validate_type_name(return_type.__name__)),
             )
 
 
@@ -123,9 +123,12 @@ class OutputCollector:
         )
 
         for key, value in get_type_hints(return_type).items():
-            schema.properties[key] = OpenRcpTypeSchema(
-                type=validate_type_name(value.__name__),
-            )
+            if schema.properties is None:
+                schema.properties = {}
+
+            schema.properties[key] = {
+                "type": validate_type_name(value.__name__),
+            }
 
         if self.components.schemas is None:
             self.components.schemas = {}
@@ -133,7 +136,7 @@ class OutputCollector:
 
         openrpc_method.result = OpenRcpContentDescriptorObject(
             name=return_type.__name__,
-            schema=OpenRpcRefSchema(
+            schema_=OpenRpcRefSchema(
                 ref=f"#/components/schemas/{return_type.__name__}",
             ),
         )
@@ -159,7 +162,7 @@ class MethodsCollector:
 
 
     def _create_method(self, method_name: str, method: Callable[..., Any]) -> OpenRpcMethod:
-        openrpc_method = OpenRpcMethod(
+        openrpc_method = OpenRpcMethod( # type: ignore[call-arg]
             name=method_name,
             summary=getattr(method, "__rpc_method_summary__", None),
             description=getattr(method, "__rpc_method_description__", None),

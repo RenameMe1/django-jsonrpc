@@ -27,12 +27,8 @@ def test_builder(
     openrpc_builder.add_server(openrpc_server)
     openrpc_builder.add_external_doc(openrpc_external_doc)
     openrpc_builder.add_components(openrpc_components)
-    openrpc_builder.add_schema("https://example.com/schema")
 
     document = openrpc_builder.build_json()
-
-    with open("openrpc.json", "w") as f:
-        f.write(document)
 
     assert json.loads(document) == {
         "openrpc": "1.3.2",
@@ -41,5 +37,4 @@ def test_builder(
         "servers": [openrpc_server_dict],
         "externalDocs": openrpc_external_doc_dict,
         "components": openrpc_components_dict,
-        "$schema": "https://example.com/schema",
     }

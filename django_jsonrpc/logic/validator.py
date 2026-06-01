@@ -28,7 +28,7 @@ class RequestValidator:
         return InvalidRequestError(data=f"Invalid JSON-RPC request body {type(json_body)}, expected dict or list")
 
 
-    def _validate_batch(self, json_body: list) -> BatchType:
+    def _validate_batch(self, json_body: list[Any]) -> BatchType:
         batch: BatchType = []
 
         for item in json_body:
@@ -40,16 +40,16 @@ class RequestValidator:
         return batch
             
 
-    def _validate_single(self, json_body: dict) -> RequestType | RpcError:
+    def _validate_single(self, json_body: dict[str, Any]) -> RequestType | RpcError:
 
         try:
             request = self._validate_request_type(json_body)
         except ValidationError:
-            request = InvalidRequestError()
+            return InvalidRequestError()
 
         return request
 
-    def _validate_request_type(self, json_body: dict) -> RequestType:
+    def _validate_request_type(self, json_body: dict[str, Any]) -> RequestType:
         if json_body.get("id") is None:
             return Notification.model_validate(json_body)
         else:

@@ -18,7 +18,7 @@ def _decorate(
     setattr(func, "__rpc_method_tags__", tags)
 
     @wraps(func)
-    def wrapper(*args: tuple, **kwargs: dict) -> Any:
+    def wrapper(*args: tuple[Any, ...], **kwargs: dict[str, Any]) -> Any:
         return func(*args, **kwargs)
 
     setattr(wrapper, "__rpc_method_name__", rpc_name)
@@ -59,12 +59,12 @@ def parametrized_decorator(
 
 
 def jsonrpc_method(
-    name_or_func: str | Callable | None = None,
+    name_or_func: str | Callable[..., Any] | None = None,
     *,
     summary: str | None = None,
     description: str | None = None,
     tags: list[str] | None = None,
-) -> Callable:
+) -> Callable[..., Any]:
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         return parametrized_decorator(
             func,

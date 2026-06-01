@@ -55,6 +55,3 @@ class OpenRpcCollector:
     def build_document(self) -> str:
 
         return self.builder.build_json()
-
-    def is_collected(self) -> bool:
-        return self.is_collected

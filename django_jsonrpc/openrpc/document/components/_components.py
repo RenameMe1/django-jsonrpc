@@ -11,6 +11,12 @@ from django_jsonrpc.openrpc.document.common import (
     OpenRpcExamplePairingObject,
     OpenRpcExampleObject,
 )
+from django_jsonrpc.openrpc.document.common._link import _OpenRpcLinkObjectTD
+from django_jsonrpc.openrpc.document.common._error import _OpenRpcErrorObjectTD
+from django_jsonrpc.openrpc.document.common._example import _OpenRpcExampleObjectTD
+from django_jsonrpc.openrpc.document.common._pairing_object import _OpenRpcExamplePairingObjectTD
+from django_jsonrpc.openrpc.document.common._descriptor import _OpenRcpContentDescriptorObjectTD
+from django_jsonrpc.openrpc.document.common._tag import _OpenRpcTagTD
 
 
 
@@ -73,9 +79,9 @@ class OpenRpcComponents(OpenRPCModel):
 
 class _OpenRpcComponentsTD(TypedDict, total=False):
     schemas: dict[str, Any] | None
-    links: dict[str, OpenRpcLinkObject] | None
-    errors: dict[str, OpenRpcErrorObject] | None
-    examples: dict[str, OpenRpcExampleObject] | None
-    examplePairings: dict[str, OpenRpcExamplePairingObject] | None
-    contentDescriptors: dict[str, OpenRcpContentDescriptorObject] | None
-    tags: dict[str, OpenRpcTag] | None
+    links: dict[str, _OpenRpcLinkObjectTD] | None
+    errors: dict[str, _OpenRpcErrorObjectTD] | None
+    examples: dict[str, _OpenRpcExampleObjectTD] | None
+    examplePairings: dict[str, _OpenRpcExamplePairingObjectTD] | None
+    contentDescriptors: dict[str, _OpenRcpContentDescriptorObjectTD] | None
+    tags: dict[str, _OpenRpcTagTD] | None

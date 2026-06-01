@@ -2,7 +2,7 @@ from typing import Annotated, Any, TypedDict
 from pydantic import Field
 
 from django_jsonrpc.openrpc.document._base import OpenRPCModel
-from django_jsonrpc.openrpc.document.common._link_server import OpenRpcLinkObjectServer
+from django_jsonrpc.openrpc.document.common._link_server import OpenRpcLinkObjectServer, _OpenRpcLinkObjectServerTD
 
 
 __all__ = [
@@ -15,7 +15,7 @@ class _OpenRpcLinkObjectTD(TypedDict):
     method: str | None
     description: str | None
     params: dict[str, Any] | None
-    server: OpenRpcLinkObjectServer
+    server: _OpenRpcLinkObjectServerTD
 
 
 class OpenRpcLinkObject(OpenRPCModel):

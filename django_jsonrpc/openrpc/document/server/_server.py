@@ -46,38 +46,38 @@ class OpenRpcServer(OpenRPCModel):
         document is being served. Server Variables are passed into the runtime
         expression to produce a server URL.
         """
-    ]
+    ] = "https://example.com/api"
     name: Annotated[
         str | None,
         Field(default=None),
         """An optional string describing the name of the server. Should used 
         the MARKDOWN format for rich text representation.
         """
-    ]
+    ] = None
     description: Annotated[
         str | None,
         Field(default=None),
         """An optional string describing the host designated by the URL. 
         Should be in the MARKDOWN format for rich text representation.
         """
-    ]
+    ] = None
     summary: Annotated[
         str | None,
         Field(default=None),
         """A short summary of what the server is.
         """
-    ]
+    ] = None
     variables: Annotated[
         dict[str, OpenRpcServerObjectVariable] | None,
         Field(default=None),
         """A map between a variable name and its value.
         The value is passed into the Runtime Expression to produce a server URL.
         """
-    ]
+    ] = None
 
 class _OpenRpcServerTD(TypedDict, total=False):
     url: str
     name: str | None
     description: str | None
     summary: str | None
-    variables: dict[str, OpenRpcServerObjectVariable] | None
+    variables: dict[str, _OpenRpcServerObjectVariableTD] | None

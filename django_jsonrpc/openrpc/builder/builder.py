@@ -4,7 +4,6 @@ from django_jsonrpc.openrpc.document._openrpc_document import OpenRpcDocument
 from django_jsonrpc.openrpc.document.info import OpenRpcInfo
 from django_jsonrpc.openrpc.document._base import OPENRPC_VERSION
 from django_jsonrpc.openrpc.document.method import OpenRpcMethod
-from django_jsonrpc.openrpc.document.common import OpenRpcReferenceObject
 from django_jsonrpc.openrpc.document.info import OpenRpcContact, OpenRpcLicense
 from django_jsonrpc.openrpc.document.server import OpenRpcServer
 from django_jsonrpc.openrpc.document.external_docs import OpenRpcExternalDoc
@@ -24,7 +23,7 @@ class OpenRpcBuilder:
         terms_of_service: str | None = None,
         contact: OpenRpcContact | None = None,
         license: OpenRpcLicense | None = None,
-    ):
+    ) -> None:
         info = OpenRpcInfo(
             title=title,
             description=description,
@@ -37,15 +36,15 @@ class OpenRpcBuilder:
         self.document = OpenRpcDocument(
             openrpc=OPENRPC_VERSION,
             info=info,
-
+            methods=[],
         )
 
-    def add_method(self, method: OpenRpcMethod | OpenRpcReferenceObject):
+    def add_method(self, method: OpenRpcMethod) -> None:
         """Add method entry to the document.
         """
         self.document.methods.append(method)
     
-    def add_server(self, server: OpenRpcServer):
+    def add_server(self, server: OpenRpcServer) -> None:
         """Add server entry to the document.
         """
         if self.document.servers is None:
@@ -53,20 +52,15 @@ class OpenRpcBuilder:
 
         self.document.servers.append(server)
 
-    def add_external_doc(self, external_doc: OpenRpcExternalDoc):
+    def add_external_doc(self, external_doc: OpenRpcExternalDoc) -> None:
         """Add external doc entry to the document.
         """
         if self.document.external_docs is None:
             self.document.external_docs = external_doc
         else:
             ValueError("External doc already exists")
-    
-    def add_schema(self, schema: str):
-        """Add schema entry to the document.
-        """
-        self.document.schema = schema
 
-    def add_components(self, components: OpenRpcComponents):
+    def add_components(self, components: OpenRpcComponents) -> None:
         """Add components entry to the document.
         """
         if self.document.components is None:

@@ -13,21 +13,30 @@ from django_jsonrpc.openrpc.document.common import (
     OpenRpcLinkObject,
     OpenRpcExamplePairingObject,
 )
+from django_jsonrpc.openrpc.document.external_docs._external_docs import _OpenRpcExternalDocTD
+from django_jsonrpc.openrpc.document.common._pairing_object import _OpenRpcExamplePairingObjectTD
+from django_jsonrpc.openrpc.document.common._reference import _OpenRpcReferenceObjectTD
+from django_jsonrpc.openrpc.document.common._link import _OpenRpcLinkObjectTD
+from django_jsonrpc.openrpc.document.common._error import _OpenRpcErrorObjectTD
+from django_jsonrpc.openrpc.document.common._descriptor import _OpenRcpContentDescriptorObjectTD
+from django_jsonrpc.openrpc.document.common._tag import _OpenRpcTagTD
+from django_jsonrpc.openrpc.document.server._server import _OpenRpcServerTD
+
 
 class _OpenRpcMethodTD(TypedDict, total=False):
     name: str
     description: str | None
     summary: str | None
-    servers: list[OpenRpcServer] | None
-    tags: list[OpenRpcTag] | None
+    servers: list[_OpenRpcServerTD] | None
+    tags: list[_OpenRpcTagTD] | None
     paramStructure: str | None
-    params: list[OpenRcpContentDescriptorObject | OpenRpcReferenceObject]
-    result: OpenRcpContentDescriptorObject | OpenRpcReferenceObject | None
-    errors: list[OpenRpcErrorObject | OpenRpcReferenceObject] | None
-    links: list[OpenRpcLinkObject | OpenRpcReferenceObject] | None
-    examples: list[OpenRpcExamplePairingObject | OpenRpcReferenceObject] | None
+    params: list[_OpenRcpContentDescriptorObjectTD | _OpenRpcReferenceObjectTD]
+    result: _OpenRcpContentDescriptorObjectTD | _OpenRpcReferenceObjectTD | None
+    errors: list[_OpenRpcErrorObjectTD | _OpenRpcReferenceObjectTD] | None
+    links: list[_OpenRpcLinkObjectTD | _OpenRpcReferenceObjectTD] | None
+    examples: list[_OpenRpcExamplePairingObjectTD | _OpenRpcReferenceObjectTD] | None
     deprecated: bool | None
-    externalDocs: OpenRpcExternalDoc | None
+    externalDocs: _OpenRpcExternalDocTD | None
 
 class OpenRpcMethod(OpenRPCModel):
     name: Annotated[

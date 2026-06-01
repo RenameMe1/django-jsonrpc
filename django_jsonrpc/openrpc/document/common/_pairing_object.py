@@ -4,7 +4,8 @@ from pydantic import Field
 from django_jsonrpc.openrpc.document._base import OpenRPCModel
 from django_jsonrpc.openrpc.document.common._example import OpenRpcExampleObject
 from django_jsonrpc.openrpc.document.common._reference import OpenRpcReferenceObject
-
+from django_jsonrpc.openrpc.document.common._example import _OpenRpcExampleObjectTD
+from django_jsonrpc.openrpc.document.common._reference import _OpenRpcReferenceObjectTD
 
 __all__ = [
     "OpenRpcExamplePairingObject",
@@ -13,8 +14,8 @@ __all__ = [
 class _OpenRpcExamplePairingObjectTD(TypedDict, total=False):
     name: str
     description: str | None
-    params: list[OpenRpcExampleObject | OpenRpcReferenceObject]
-    result: OpenRpcExampleObject | OpenRpcReferenceObject | None
+    params: list[_OpenRpcExampleObjectTD | _OpenRpcReferenceObjectTD]
+    result: _OpenRpcExampleObjectTD | _OpenRpcReferenceObjectTD | None
 
 
 class OpenRpcExamplePairingObject(OpenRPCModel):

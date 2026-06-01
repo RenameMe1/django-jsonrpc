@@ -22,7 +22,7 @@ class RpcDispatcher:
     async def dispatch(
             self,
             body: RequestType | BatchType | RpcError,
-            registry: dict[MethodType, Callable],
+            registry: dict[MethodType, HandlerType],
     ) -> ResponseType | BatchResponseType:
         """Public method to dispatch a request.
 
@@ -40,7 +40,7 @@ class RpcDispatcher:
     async def _dispatch_single(
             self,
             request: RequestType,
-            registry: dict[MethodType, Callable],
+            registry: dict[MethodType, HandlerType],
     ) -> ResponseType:
         """Dispatch a single request."""
 
@@ -50,7 +50,11 @@ class RpcDispatcher:
         handler, bound = self._get_handler(method, params, registry)
 
         if isinstance(handler, RpcError):
-            return ErrorResponse(id=request.id, error=handler)
+            if isinstance(request, Notification):
+                return ErrorResponse(id=None, error=handler)
+            else:
+                return ErrorResponse(id=request.id, error=handler)
+            
 
         result = await self._call_handler(handler, bound)
 
@@ -68,8 +72,8 @@ class RpcDispatcher:
             self,
             method: MethodType,
             params: ParamType,
-            registry: dict[MethodType, Callable],
-    ) -> tuple[Callable | RpcError, BoundArguments | None]:
+            registry: dict[MethodType, HandlerType],
+    ) -> tuple[HandlerType | RpcError, BoundArguments | None]:
         """Get a handler from registry and bind params."""
 
         bound = None
@@ -99,12 +103,17 @@ class RpcDispatcher:
     async def _call_handler(
         self,
         handler: HandlerType,
-        bound: BoundArguments
+        bound: BoundArguments | None,
     ) -> Any | RpcError: 
         try:
-            result = handler(*bound.args, **bound.kwargs)
+            if bound is None:
+                result = handler()
+            else:
+               result = handler(*bound.args, **bound.kwargs)
+
             if inspect.isawaitable(result):
                 result = await result
+
         except Exception as e:
             logger.exception(e)
             result = InternalError()
@@ -114,7 +123,7 @@ class RpcDispatcher:
     async def _dispatch_batch(
             self,
             requests: BatchType,
-            registry: dict[MethodType, Callable],
+            registry: dict[MethodType, HandlerType],
     ) -> BatchResponseType:
         batch_response: BatchResponseType = []
 

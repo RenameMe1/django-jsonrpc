@@ -1,8 +1,10 @@
-from typing import Annotated, TypedDict
+from typing import Annotated, TypedDict, NotRequired
 from pydantic import Field
 
 from django_jsonrpc.openrpc.document._base import OpenRPCModel
-from django_jsonrpc.openrpc.document.common._schema import OpenRpcSchema
+from django_jsonrpc.openrpc.document.common._schema import OpenRcpTypeSchema
+from django_jsonrpc.openrpc.document.common._schema import _OpenRpcSchemaTD
+from django_jsonrpc.openrpc.document.common._schema import OpenRpcRefSchema, OpenRpcDataSchema
 
 __all__ = [
     "OpenRcpContentDescriptorObject",
@@ -10,9 +12,9 @@ __all__ = [
 
 class _OpenRcpContentDescriptorObjectTD(TypedDict):
     name: str
-    description: str | None
-    summary: str | None
-    schema: OpenRpcSchema
+    description: NotRequired[str]
+    summary: NotRequired[str]
+    schema: _OpenRpcSchemaTD
     required: bool
     deprecated: bool
 
@@ -43,11 +45,12 @@ class OpenRcpContentDescriptorObject(OpenRPCModel):
         """A short summary of the content that is being described..
         """
     ] = None
-    schema: Annotated[
-        OpenRpcSchema,
+    schema_: Annotated[
+        OpenRcpTypeSchema | OpenRpcRefSchema | OpenRpcDataSchema,
+        Field(serialization_alias="schema"),
         """REQUIRED. Schema that describes the content..
         """
-    ] = None
+    ]
     required: Annotated[
         bool,
         Field(default=False),

@@ -1,7 +1,6 @@
 # OpenRpc
 
-Django-jsonrpc have a complete implementation of OpenRpc specification using 
-`Pydantic`.
+Django-jsonrpc have a complete implementation of OpenRpc 1.3.2 specification using `Pydantic`.
 
 > [!WARNING]
 > But only a small part its connected with user API, see next table

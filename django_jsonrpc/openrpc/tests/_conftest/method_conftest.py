@@ -1,7 +1,6 @@
 import pytest
 
-from django_jsonrpc.openrpc.document.method import OpenRpcMethod
-from django_jsonrpc.openrpc.document.method._method import _OpenRpcMethodTD
+from django_jsonrpc.openrpc.document.method._method import _OpenRpcMethodTD, OpenRpcMethod
 from django_jsonrpc.openrpc.document.common import OpenRpcTag, OpenRcpContentDescriptorObject, OpenRpcErrorObject, OpenRpcLinkObjectServer, OpenRpcLinkObject, OpenRpcExamplePairingObject, OpenRpcExampleObject
 from django_jsonrpc.openrpc.document.server import OpenRpcServer, OpenRpcServerObjectVariable
 from django_jsonrpc.openrpc.document.external_docs import OpenRpcExternalDoc
@@ -161,6 +160,7 @@ def openrpc_method_minimal() -> OpenRpcMethod:
         name="test_method",
         description="Test method description",
         summary="Test method summary",
+        params=[],
     )
 
 @pytest.fixture
@@ -188,7 +188,7 @@ def openrpc_params() -> OpenRcpContentDescriptorObject:
     return OpenRcpContentDescriptorObject(
         name="test_param",
         description="Test param description",
-        schema=OpenRcpTypeSchema(type="string"),
+        schema_=OpenRcpTypeSchema(type="string"),
         required=False,
         deprecated=False,
     )
@@ -198,7 +198,7 @@ def openrpc_result() -> OpenRcpContentDescriptorObject:
     return OpenRcpContentDescriptorObject(
         name="test_result",
         description="Test result description",
-        schema=OpenRcpTypeSchema(type="string"),
+        schema_=OpenRcpTypeSchema(type="string"),
         required=False,
         deprecated=False,
     )
