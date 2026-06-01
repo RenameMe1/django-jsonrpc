@@ -13,15 +13,25 @@ We provide several methods creating methods.
 
 - Using `method_` prefix
 - Using `jsonrpc_method` decorator
+- Rename existing func to new name
 
 ``` python
 
 from django-jsonrpc import BaseController
+from django_jsonrpc.controller.decor import jsonrpc_method
 
 class EchoController(BaseController):
     
-    def method_echo_hello(self, name) -> str:
+    def method_echo_hello(self, name: str) -> str:
         return f"hello {name}"
+
+    @jsonrpc_method
+    def echo_goodbye(self, name: str) -> str:
+        return f"goodbye {name}"
+
+    @jsonrpc_method("echo_see_you")
+    def wrong_name(self, name) -> str:
+        retorn "See you fron echo_see_you method"
 
 ```
 
@@ -32,8 +42,13 @@ from django-jsonrpc import RouteController
 
 class PrintController(BaseController):
 
-    def method_print_hello(self, name) -> None:
+    async def method_print_hello(self, name) -> None:
         print(f"hello {name}")
+
+    @jsonrpc_method
+    async def print_goodbye(self, name) -> None:
+        print(f"goodbye {name}")
+ 
 
 route = RouteController(
     'jsonrpc',
@@ -64,4 +79,12 @@ urlpatterns = [
     path('docs', OpenRpcDocView.as_view()),
 ]
 
-````
+```
+
+### Openrpc.json example
+
+![OpenRPC docs](docs/docs/openrpcjson.png)
+
+## Openrpc doc example
+
+![OpenRPC docs](docs/docs/docs.png)
