@@ -31,7 +31,7 @@ class EchoController(BaseController):
 
     @jsonrpc_method("echo_see_you")
     def wrong_name(self, name) -> str:
-        retorn "See you fron echo_see_you method"
+        return "See you fron echo_see_you method"
 
 ```
 
@@ -73,7 +73,7 @@ collector = OpenRpcCollector(
 
 
 urlpatterns = [
-    path('echorpc', EchoController,as_view)
+    path('echorpc', EchoController,as_view),
     path('jsonrpc', route.as_view()),
     path('openrpc.json', OpenRpcJsonView.as_view(collector=collector)),
     path('docs', OpenRpcDocView.as_view()),
