@@ -1,5 +1,11 @@
 # Django jsonrpc implementation
 
+## install
+
+```
+pip install django-jsonrpc-framework
+```
+
 ## Advantages
 
 - Complete support jsonrpc 2.0 (Request, Notificatin, Batch)
@@ -17,8 +23,8 @@ We provide several methods creating methods.
 
 ``` python
 
-from django_jsonrpc import BaseController
-from django_jsonrpc.controller.decor import jsonrpc_method
+from jsonrpc_framework import BaseController
+from jsonrpc_framework.controller.decor import jsonrpc_method
 
 class EchoController(BaseController):
     
@@ -38,7 +44,7 @@ class EchoController(BaseController):
 ## Adding several controllers to one controller
 
 ``` python
-from django_jsonrpc import RouteController
+from jsonrpc_framework import RouteController
 
 class PrintController(BaseController):
 
@@ -63,7 +69,7 @@ route = RouteController(
 ## Generation openrpc.json and OpenRpc documentation
 
 ``` python
-from django_jsonrpc.controller.openrpc.collectors import OpenRpcCollector
+from jsonrpc_framework.controller.openrpc.collectors import OpenRpcCollector
 
 collector = OpenRpcCollector(
     PrintController,

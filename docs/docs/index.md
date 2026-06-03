@@ -21,8 +21,8 @@ from django.conf import settings
 from django.core.management import execute_from_command_line
 from django.urls import include, path
 
-from django_jsonrpc.controller import BaseController
-from django_jsonrpc.controller.decor import jsonrpc_method
+from jsonrpc_framework.controller import BaseController
+from jsonrpc_framework.controller.decor import jsonrpc_method
 
 if not settings.configured:
     settings.configure(

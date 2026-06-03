@@ -1,8 +1,8 @@
 from django.urls import path
 from typing import Any
 
-from django_jsonrpc.controller import BaseController
-from django_jsonrpc.core.error import ParseError, RpcError
+from jsonrpc_framework.controller import BaseController
+from jsonrpc_framework.core.error import ParseError, RpcError
 
 class CutsomError(RpcError):
     code: int = -4000

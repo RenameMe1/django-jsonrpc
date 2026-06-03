@@ -2,11 +2,11 @@ from collections.abc import Callable
 
 import pytest
 
-from django_jsonrpc.logic.validator import RequestValidator
-from django_jsonrpc.logic.dispatcher import RpcDispatcher
-from django_jsonrpc.core.models import MethodType, Notification, RpcError
-from django_jsonrpc.core.models import Request
-from django_jsonrpc.logic.responser import ResponseBuilder
+from jsonrpc_framework.logic.validator import RequestValidator
+from jsonrpc_framework.logic.dispatcher import RpcDispatcher
+from jsonrpc_framework.core.models import MethodType, Notification, RpcError
+from jsonrpc_framework.core.models import Request
+from jsonrpc_framework.logic.responser import ResponseBuilder
 
 # Validators fixtures
 

@@ -1,6 +1,6 @@
-from django_jsonrpc.logic.validator import RequestValidator
-from django_jsonrpc.core.models import Request, Notification
-from django_jsonrpc.core.error import ParseError, InvalidRequestError
+from jsonrpc_framework.logic.validator import RequestValidator
+from jsonrpc_framework.core.models import Request, Notification
+from jsonrpc_framework.core.error import ParseError, InvalidRequestError
 
 
 def test_valid_single_request(

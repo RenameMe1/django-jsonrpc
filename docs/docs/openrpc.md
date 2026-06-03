@@ -19,8 +19,8 @@ Django-jsonrpc have a complete implementation of OpenRpc 1.3.2 specification usi
 The OpenRpc documentation work only if have openrpc json view, lets connect it first.
 
 ``` python
-from django_jsonrpc.controller.openrpc._openrpc import OpenRpcJsonView, OpenRpcDocView
-from django_jsonrpc.controller.openrpc.collectors import OpenRpcCollector
+from jsonrpc_framework.controller.openrpc._openrpc import OpenRpcJsonView, OpenRpcDocView
+from jsonrpc_framework.controller.openrpc.collectors import OpenRpcCollector
 
 collector = OpenRpcCollector(EchoController)
 
@@ -82,8 +82,8 @@ While creating a OpenRpcCollector you have an opportunity to create `Info` about
 your project, see next.
 
 ``` python
-from django_jsonrpc.controller.openrpc.collectors import OpenRpcCollector
-from django_jsonrpc.openrpc.document.info import OpenRpcContact, OpenRpcLicense
+from jsonrpc_framework.controller.openrpc.collectors import OpenRpcCollector
+from jsonrpc_framework.openrpc.document.info import OpenRpcContact, OpenRpcLicense
 
 class EchoController(BaseController):
 

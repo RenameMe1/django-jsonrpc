@@ -1,9 +1,9 @@
 import pytest
 
-from django_jsonrpc.logic.dispatcher import RpcDispatcher
-from django_jsonrpc.core.models import MethodType, SuccessResponse, ErrorResponse, RpcError
+from jsonrpc_framework.logic.dispatcher import RpcDispatcher
+from jsonrpc_framework.core.models import MethodType, SuccessResponse, ErrorResponse, RpcError
 from collections.abc import Callable
-from django_jsonrpc.core.models import Request, Notification
+from jsonrpc_framework.core.models import Request, Notification
 
 
 pytestmark = pytest.mark.asyncio

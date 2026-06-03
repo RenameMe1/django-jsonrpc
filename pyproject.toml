@@ -1,10 +1,14 @@
 [project]
-name = "django-jsonrpc"
+name = "django-jsonrpc-framework"
 version = "0.1.0"
-description = "Add your description here"
+description = "Django jsonrpc implementation"
 readme = "README.md"
-
 requires-python = ">=3.13"
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Framework :: Django",
+]
 
 dependencies = [
     "django>=6.0.5",
@@ -41,3 +45,18 @@ plugins = ["mypy_django_plugin.main", "pydantic.mypy"]
 
 [tool.django-stubs]
 django_settings_module = "single_file_asgi"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["jsonrpc_framework"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "jsonrpc_framework/**",
+  "README.md",
+  "pyproject.toml",
+]

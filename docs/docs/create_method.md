@@ -9,7 +9,7 @@ The BaseController define all methods startwith `method_` as jsonrpc method,
 and registered its name without that prefix, see example below:
 
 ```python
-from django_jsonrpc import BaseConroller
+from jsonrpc_framework import BaseConroller
 
 class MyController(BaseController):
 
@@ -34,7 +34,7 @@ We also could use decorator to regitering methods, the decorator use current
 method name to registered him, see example below:
 
 ``` python
-from django_jsonrpc import BaseController, jsonrpc_method
+from jsonrpc_framework import BaseController, jsonrpc_method
 
 class MyController(BaseController):
 
@@ -60,7 +60,7 @@ method
 
 
 ``` python
-from django_jsonrpc import BaseController, jsonrpc_method
+from jsonrpc_framework import BaseController, jsonrpc_method
 
 class MyController(BaseController):
 

@@ -4,8 +4,8 @@ You have an able to create your own error, or use exist in your code, see below 
 
 
 ``` python
-from django_jsonrpc import BaseController
-from django_jsonrpc.core import PrcError, InternalError
+from jsonrpc_framework import BaseController
+from jsonrpc_framework.core import PrcError, InternalError
 
 class DoesntSupprotError(RpcError):
     code: int = -4000

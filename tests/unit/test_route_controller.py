@@ -1,5 +1,5 @@
 import pytest
-from django_jsonrpc.controller import RouteController, BaseController
+from jsonrpc_framework.controller import RouteController, BaseController
 
 def test_route_controller() -> None:
     class TestController(BaseController):

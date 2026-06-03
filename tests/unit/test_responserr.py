@@ -1,8 +1,8 @@
 from django.conf import settings
-from django_jsonrpc.logic.responser import ResponseBuilder
-from django_jsonrpc.core.models import SuccessResponse
-from django_jsonrpc.core.error import MethodNotFoundError
-from django_jsonrpc.core.models import ErrorResponse
+from jsonrpc_framework.logic.responser import ResponseBuilder
+from jsonrpc_framework.core.models import SuccessResponse
+from jsonrpc_framework.core.error import MethodNotFoundError
+from jsonrpc_framework.core.models import ErrorResponse
 
 settings.configure()
 

@@ -1,7 +1,7 @@
 import pytest
 
-from django_jsonrpc.controller._base import BaseController
-from django_jsonrpc.controller.decor import jsonrpc_method
+from jsonrpc_framework.controller._base import BaseController
+from jsonrpc_framework.controller.decor import jsonrpc_method
 
 def test_collect_declared_methods() -> None:
     """Test default method names collection."""

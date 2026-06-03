@@ -5,3 +5,6 @@
 __pycache__
 */__pycache__/*
 .cursor
+dist/
+build/
+*.egg-info/

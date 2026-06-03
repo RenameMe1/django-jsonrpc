@@ -29,7 +29,7 @@ After that, we just add `route` to `urls.py`
 ``` python
 from django.urls import path
 
-from django_jsonrpc.controller import RouteController
+from jsonrpc_framework.controller import RouteController
 
 from .product import ProductController
 from .account import AccountController

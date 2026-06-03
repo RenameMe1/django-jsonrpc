@@ -6,14 +6,14 @@ from django.conf import settings
 from django.core.management import execute_from_command_line
 from django.urls import path
 
-from django_jsonrpc.controller import BaseController
-from django_jsonrpc.controller.decor import jsonrpc_method
+from jsonrpc_framework.controller import BaseController
+from jsonrpc_framework.controller.decor import jsonrpc_method
 
-from django_jsonrpc.controller.openrpc._openrpc import OpenRpcJsonView
-from django_jsonrpc.controller.openrpc.collectors import OpenRpcCollector
-from django_jsonrpc.controller.openrpc._openrpc import OpenRpcDocView
-from django_jsonrpc.core.error import RpcError
-from django_jsonrpc.openrpc.document.info import OpenRpcContact, OpenRpcLicense
+from jsonrpc_framework.controller.openrpc._openrpc import OpenRpcJsonView
+from jsonrpc_framework.controller.openrpc.collectors import OpenRpcCollector
+from jsonrpc_framework.controller.openrpc._openrpc import OpenRpcDocView
+from jsonrpc_framework.core.error import RpcError
+from jsonrpc_framework.openrpc.document.info import OpenRpcContact, OpenRpcLicense
 
 class CustomError(RpcError):
     code: int = -4000
