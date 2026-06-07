@@ -1,4 +1,5 @@
 site_name: Django-jsonrpc
+theme: material
 
 nav:
   - Home: index.md 
