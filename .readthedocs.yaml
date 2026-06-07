@@ -5,9 +5,22 @@
    tools:
      python: "3"
    jobs:
-     pre_install:
-       - pip install uv
-       - uv sync --only-group docs
+    pre_create_environment:
+      - asdf plugin add uv
+      - asdf install uv latest
+      - asdf global uv latest
+      - uv export
+        --all-extras
+        --group docs
+        --no-emit-project
+        --format=requirements.txt
+        --output-file=requirements.txt
+
+python:
+  install:
+    - requirements: requirements.txt
+    - method: pip
+      path: .
 
  mkdocs:
    configuration: docs/mkdocs.yml
